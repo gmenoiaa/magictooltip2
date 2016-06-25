@@ -172,7 +172,7 @@ function ajax_preloadData(x) {
         if (l.indexOf(x[e].href) < 0) l.push(x[e].href);
     }
     console.debug(l);
-    var u = 'http://localhost/onerhino/swtor/result.json?';
+    var u = '/magictooltip2/result.json?';
     for (var e = 0, a = l.length; a > e; e++ ) {
         if(e > 0) u += '&';
         u += 'url[]=' + l[e];
