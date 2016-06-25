@@ -1,0 +1,17 @@
+{
+  "http://swtordata.com/items/46913": {
+    "color": "#cccccc",
+    "image": {
+      "src": "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Home-icon.png",
+      "width": "25px",
+      "position": "left"
+    }
+  },
+  "http://swtordata.com/items/63356": {
+    "color": "#ff0000",
+    "image": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_information_icon_with_gradient_background.svg/48px-Red_information_icon_with_gradient_background.svg.png",
+      "position": "right"
+    }
+  }
+}
