@@ -166,51 +166,42 @@ function ajaxTooltip_getLeftPos(t) {
 }
 
 function ajax_preloadData(x) {
-    console.debug(x);
     var l = [];
     for (var e = 0, a = x.length; a > e; e++ ) {
         if (l.indexOf(x[e].href) < 0) l.push(x[e].href);
     }
-    console.debug(l);
-    var u = '/magictooltip2/result.json?';
+    var u = 'http://swtordata.com/widgetload.json', b = '';
     for (var e = 0, a = l.length; a > e; e++ ) {
-        if(e > 0) u += '&';
-        u += 'url[]=' + l[e];
-    }
-    console.debug(u);
-    ajax_preloadContent(x, u);
+        if(e > 0) b += '&';
+        b += 'url[]=' + l[e];
+    }    
+    ajax_preloadContent(x, u, b);
 }
 
-function ajax_preloadContent(x, e) {
+function ajax_preloadContent(x, e, b) {
     var o = dynamicContent_ajaxObjects.length;
     if (dynamicContent_ajaxObjects[o] = new sack, e.indexOf("?") >= 0) {
-        dynamicContent_ajaxObjects[o].method = "GET";
-        var n = e.substring(e.indexOf("?"));
-        e = e.replace(n, ""), n = n.replace("?", "");
-        for (var i = n.split(/&/g), s = 0; s < i.length; s++) {
+        dynamicContent_ajaxObjects[o].method = "POST";
+        for (var i = b.split(/&/g), s = 0; s < i.length; s++) {
             var r = i[s].split("=");
             2 == r.length && dynamicContent_ajaxObjects[o].setVar(r[0], r[1])
         }
-        e = e.replace(n, "")
+        b = b.replace(n, "")
     }
     dynamicContent_ajaxObjects[o].requestFile = e, dynamicContent_ajaxObjects[o].onCompletion = function() {
         var json = JSON.parse( dynamicContent_ajaxObjects[o].response );
         for (var e = 0, a = x.length; a > e; e++ ) {
             var d = json[x[e].href];
             if(d !== undefined) {
-                x[e].style.color = d.color;
-                x[e].style.background = "url('"+d.image.src+"') no-repeat " + d.image.position + " center";
-                x[e].style.backgroundSize = "auto 100%";
-                var w = d.image.width !== undefined ? d.image.width : '25px';
-                if(d.image.position !== undefined && d.image.position == 'right') {
-                    x[e].style.paddingRight = w;
-                }
-                else {
-                    x[e].style.paddingLeft = w;
+                if(d.color) x[e].style.color = '#'+d.color;
+                if(d.image) {
+                    x[e].style.background = "url('"+d.image.src+"') no-repeat left center";
+                    x[e].style.backgroundSize = "auto 100%";
+                    x[e].style.paddingLeft = '25px';
                 }
             }
         }
-    }, dynamicContent_ajaxObjects[o].runAJAX()
+    }, dynamicContent_ajaxObjects[o].runAJAX(b)
 }
 
 function changeswtordata() {
